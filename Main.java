@@ -6,19 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*
-        //ArrayList that contains all tasks
-        List<Task> allTasks = new ArrayList<>();
-        //Hashmap that contains all weeklytasks
-        Map<DayOfWeek, List<TaskWeekly>> weeklyTasks = new HashMap<>();
-        //A priorityQueue focused on whats due Today
-        Queue<Task> todayQueue = new PriorityQueue<>();
-        //Stack meant to mark completed tasks. Good for an undo button
-        Stack<Task> completedTasks = new Stack<>();
-        //Defining the Scanner and variables needed
-         */
-        // Your code goes here
-        //System.out.println("Hello, World!");
         Scanner scanner = new Scanner(System.in);
 
         TaskManager manager = new TaskManager();
@@ -35,14 +22,13 @@ public class Main {
             System.out.println("4. Complete Task");
             System.out.println("5. Undo Complete");
             System.out.println("6. Sort Tasks");
-            System.out.println("7. Show Next Task");
-            System.out.println("8. Exit");
+            System.out.println("7. Delete Task");
+            System.out.println("8. Save Tasks");
+            System.out.println("9. Exit");
 
             System.out.print("Choose: ");
 
-            int choice = scanner.nextInt();
-
-            scanner.nextLine();
+            int choice = getIntInput(scanner);
 
             switch (choice) {
 
@@ -55,10 +41,10 @@ public class Main {
                     String desc = scanner.nextLine();
 
                     System.out.print("Priority: ");
-                    int priority = scanner.nextInt();
+                    int priority = getIntInput(scanner);
 
                     System.out.print("Due Hour (0-23): ");
-                    int due = scanner.nextInt();
+                    int due = getIntInput(scanner);
 
                     TaskDaily daily
                             = new TaskDaily(title, desc, priority, due);
@@ -75,10 +61,10 @@ public class Main {
                     String desc = scanner.nextLine();
 
                     System.out.print("Priority: ");
-                    int priority = scanner.nextInt();
+                    int priority = getIntInput(scanner);
 
                     System.out.print("Due Hour (0-23): ");
-                    int due = scanner.nextInt();
+                    int due = getIntInput(scanner);
 
                     scanner.nextLine();
 
@@ -88,8 +74,7 @@ public class Main {
                             = DayOfWeek.valueOf(scanner.nextLine().toUpperCase());
 
                     TaskWeekly weekly
-                            = new TaskWeekly(title, desc,
-                                    priority, due, day);
+                            = new TaskWeekly(title, desc, priority, due, day);
 
                     manager.addTask(weekly);
                 }
@@ -103,7 +88,7 @@ public class Main {
 
                     System.out.print("Task Number: ");
 
-                    int index = scanner.nextInt();
+                    int index = getIntInput(scanner);
 
                     manager.completeTask(index - 1);
                 }
@@ -114,10 +99,19 @@ public class Main {
                 case 6 ->
                     manager.sortTasks();
 
-                case 7 ->
-                    manager.showNextTask();
+                case 7 -> {
+                    manager.displayTasks();
+
+                    System.out.print("Task Number: ");
+
+                    int index = getIntInput(scanner);
+
+                    manager.removeTask(index - 1);
+                }
 
                 case 8 ->
+                    manager.saveTasks();
+                case 9 ->
                     running = false;
 
                 default ->
@@ -127,4 +121,19 @@ public class Main {
 
         scanner.close();
     }
+
+    public static int getIntInput(Scanner scanner) {
+
+    while (true) {
+
+        try {
+
+            return Integer.parseInt(scanner.nextLine());
+
+        } catch (NumberFormatException e) {
+
+            System.out.print("Invalid input. Enter a number: ");
+        }
+    }
+}
 }

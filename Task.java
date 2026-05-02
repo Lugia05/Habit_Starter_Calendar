@@ -10,17 +10,50 @@ public class Task implements Comparable<Task> {
     public Task(String title, String description, int priority, int dueTime) {
         this.title = title;
         this.description = description;
-        this.priority = priority;
+        setPriority(priority);;
         this.completed = false;
-        this.dueTime = dueTime;
+        setDueTime(dueTime);
     }
 
     public void markComplete() {
-        completed = true;
+
+    if (completed) {
+
+        System.out.println("Task already completed.");
+        return;
     }
+
+    completed = true;
+
+    System.out.println("Task marked complete.");
+}
 
     public void markIncomplete() {
         completed = false;
+    }
+
+    public void setDueTime(int dueTime) {
+
+        if (dueTime < 0) {
+            System.out.println("Invalid time, automatically setting to nearest valid time: 0");
+            this.dueTime = 0;
+        } else if (dueTime > 23){
+            System.out.println("Invalid time, automatically setting to nearest valid time: 23");
+            this.dueTime = 23;
+        } else {
+            this.dueTime = dueTime;
+        }
+        
+    }
+
+    public void setPriority(int priority){
+        if (priority < 0){
+            this.priority = 0;
+        } else if (priority > 5) {
+            this.priority = 5;
+        } else {
+            this.priority = priority;
+        }
     }
 
     public String getTitle() {

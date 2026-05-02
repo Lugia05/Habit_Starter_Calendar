@@ -1,4 +1,7 @@
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class TaskManager {
@@ -128,5 +132,83 @@ public class TaskManager {
         }
 
         System.out.println("Next Task: " + taskQueue.peek());
+    }
+
+
+    //Search for a Specific Task
+    public void searchTask(String keyword) {
+
+    boolean found = false;
+
+    for (Task task : allTasks) {
+
+            if (task.getTitle()
+                    .toLowerCase()
+                    .contains(keyword.toLowerCase())) {
+
+                System.out.println(task);
+
+                found = true;
+            }
+        }
+
+        if (!found) {
+
+            System.out.println("No matching tasks.");
+        }
+    }
+
+    //Delete a task
+    public void removeTask(int index) {
+
+        if (index < 0 || index >= allTasks.size()) {
+
+            System.out.println("Invalid index.");
+            return;
+        }
+
+        Task removed = allTasks.remove(index);
+
+        System.out.println("Removed: " + removed.getTitle());
+    }
+
+    //First options
+    public void createTask(Scanner scanner) {
+
+        System.out.println("1. Daily");
+        System.out.println("2. Weekly");
+        System.out.println("3. Calendar");
+
+        int type = scanner.nextInt();
+
+        scanner.nextLine();
+
+        System.out.print("Title: ");
+        String title = scanner.nextLine();
+
+        // etc...
+    }   
+
+    //Save Tasks
+    public void saveTasks() {
+
+        try {
+
+            PrintWriter writer =
+                    new PrintWriter(new FileWriter("tasks.txt"));
+
+            for (Task task : allTasks) {
+
+                writer.println(task.toString());
+            }
+
+            writer.close();
+
+            System.out.println("Tasks saved.");
+
+        } catch (IOException e) {
+
+            System.out.println("Error saving file.");
+        }
     }
 }

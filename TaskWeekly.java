@@ -5,9 +5,7 @@ public class TaskWeekly extends Task {
 
     private DayOfWeek day;
 
-    public TaskWeekly(String title, String description,
-            int priority, int dueTime,
-            DayOfWeek day) {
+    public TaskWeekly(String title, String description, int priority, int dueTime, DayOfWeek day) {
 
         super(title, description, priority, dueTime);
         this.day = day;
