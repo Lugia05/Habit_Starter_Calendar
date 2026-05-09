@@ -1,4 +1,11 @@
 
+/**
+Represents a recurring weekly task.
+Weekly tasks occur on a specific
+day of the week.
+@author Erik Cabrera
+*/
+
 import java.time.DayOfWeek;
 
 public class TaskWeekly extends Task {
@@ -20,4 +27,13 @@ public class TaskWeekly extends Task {
         return super.toString() + " | Day: " + day;
     }
 }
-//Mon - 0 Tue - 1 Wed - 2 Thu - 3 Fri - 4 Sat - 5 Sun - 6
+
+/**
+Constructs a weekly task.
+@param title the task title
+@param description task details
+@param priority task priority
+@param dueTime due hour (0-23)
+@param day the day of the week
+@author Erik Cabrera
+*/

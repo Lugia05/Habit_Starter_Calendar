@@ -1,0 +1,2 @@
+DAILY,Cat,Feed Car,1,1,false
+WEEKLY,Take out Trash,Trash Day,4,4,false,MONDAY

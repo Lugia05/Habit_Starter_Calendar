@@ -8,14 +8,14 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
-public class TaskCalendar {
+public class TaskLists {
 
     private List<Task> allTasks;
     private Map<DayOfWeek, List<TaskWeekly>> weeklyTasks;
     private Queue<Task> todayQueue;
     private Stack<Task> completedStack;
 
-    public TaskCalendar() {
+    public TaskLists() {
         allTasks = new ArrayList<>();
         weeklyTasks = new HashMap<>();
         todayQueue = new PriorityQueue<>();

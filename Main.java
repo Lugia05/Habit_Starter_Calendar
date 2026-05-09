@@ -1,4 +1,9 @@
-
+/*
+* @Param
+* @return
+* @Throws
+* @Author Erik Cabrera
+*/
 import java.time.DayOfWeek;
 import java.util.Scanner;
 
@@ -16,15 +21,14 @@ public class Main {
 
             System.out.println("\n===== TASK MANAGER =====");
 
-            System.out.println("1. Add Daily Task");
-            System.out.println("2. Add Weekly Task");
+            System.out.println("1. Files");
+            System.out.println("2. Add Task");
             System.out.println("3. View Tasks");
             System.out.println("4. Complete Task");
             System.out.println("5. Undo Complete");
             System.out.println("6. Sort Tasks");
             System.out.println("7. Delete Task");
-            System.out.println("8. Save Tasks");
-            System.out.println("9. Exit");
+            System.out.println("8. Exit");
 
             System.out.print("Choose: ");
 
@@ -33,50 +37,11 @@ public class Main {
             switch (choice) {
 
                 case 1 -> {
-
-                    System.out.print("Title: ");
-                    String title = scanner.nextLine();
-
-                    System.out.print("Description: ");
-                    String desc = scanner.nextLine();
-
-                    System.out.print("Priority: ");
-                    int priority = getIntInput(scanner);
-
-                    System.out.print("Due Hour (0-23): ");
-                    int due = getIntInput(scanner);
-
-                    TaskDaily daily
-                            = new TaskDaily(title, desc, priority, due);
-
-                    manager.addTask(daily);
+                    manager.fileMenu(scanner);
                 }
 
                 case 2 -> {
-
-                    System.out.print("Title: ");
-                    String title = scanner.nextLine();
-
-                    System.out.print("Description: ");
-                    String desc = scanner.nextLine();
-
-                    System.out.print("Priority: ");
-                    int priority = getIntInput(scanner);
-
-                    System.out.print("Due Hour (0-23): ");
-                    int due = getIntInput(scanner);
-
-                    scanner.nextLine();
-
-                    System.out.print("Day (MONDAY etc): ");
-
-                    DayOfWeek day
-                            = DayOfWeek.valueOf(scanner.nextLine().toUpperCase());
-
-                    TaskWeekly weekly
-                            = new TaskWeekly(title, desc, priority, due, day);
-
-                    manager.addTask(weekly);
+                    manager.createTask(scanner);
                 }
 
                 case 3 ->
@@ -110,10 +75,7 @@ public class Main {
                 }
 
                 case 8 ->
-                    manager.saveTasks();
-                case 9 ->
                     running = false;
-
                 default ->
                     System.out.println("Invalid option.");
             }
@@ -124,16 +86,41 @@ public class Main {
 
     public static int getIntInput(Scanner scanner) {
 
-    while (true) {
+        while (true) {
 
-        try {
+            try {
 
-            return Integer.parseInt(scanner.nextLine());
+                return Integer.parseInt(scanner.nextLine());
 
-        } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
 
-            System.out.print("Invalid input. Enter a number: ");
+                System.out.print("Invalid input. Enter a number: ");
+            }
         }
     }
+
+    public static DayOfWeek getDayInput(Scanner scanner) {
+
+        while (true) {
+
+            try {
+
+                String input =
+                        scanner.nextLine()
+                                .trim()
+                                .toUpperCase();
+
+                return DayOfWeek.valueOf(input);
+
+            } catch (IllegalArgumentException e) {
+
+                System.out.print(
+                        "Invalid day. Try MONDAY, TUESDAY, etc: "
+                );
+            }
+        }
+    }
+
+
 }
-}
+
